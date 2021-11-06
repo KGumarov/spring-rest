@@ -5,7 +5,7 @@
     <title>Edit user</title>
 </head>
 <body>
-<form th:action="@{/users}" th:method="POST" th:object="${user}">
+<form th:action="@{/admin}" th:method="POST" th:object="${user}">
     <input name="id" type="hidden" th:field="*{id}">
     <label for="name">Имя</label>
     <input id="name" type="text" th:field="*{firstName}">
@@ -15,8 +15,22 @@
     <br/>
     <label for="age">Возраст</label>
     <input id="age" type="text" th:field="*{age}">
-    <br>
-    <input name="change" type="submit" value="Изменить">
+    <br/>
+    <label for="login">Логин</label>
+    <input id="login" type="text" th:field="*{username}">
+    <br/>
+    <label for="password">Пароль</label>
+    <input id="password" type="text" name="password">
+    <br/>
+
+    <select name="role_select" multiple>
+        <option th:each="role : ${roles}" th:value="${role.getId()}" th:text="${role.getAuthority()}"/>
+    </select>
+
+
+    <br/>
+    <input name="change" type="submit" value="Добавить" th:value="${action}">
 </form>
+<div th:insert="admin :: logout"></div>
 </body>
 </html>

@@ -5,12 +5,12 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.example</groupId>
-    <artifactId>spring-CRUD-2.3.1</artifactId>
+    <artifactId>spring-security-2.4.2</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
 
     <properties>
-        <spring.version>5.2.18.RELEASE</spring.version>
+        <spring.version>5.2.0.RELEASE</spring.version>
     </properties>
 
     <dependencies>
@@ -24,6 +24,18 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-orm</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-web</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-config</artifactId>
             <version>${spring.version}</version>
         </dependency>
 
@@ -57,7 +69,7 @@
     </dependencies>
 
     <build>
-        <finalName>spring-CRUD-2.3.1</finalName>
+        <finalName>spring-security-2.4.2</finalName>
         <pluginManagement>
             <plugins>
                 <plugin>

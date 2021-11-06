@@ -1,5 +1,6 @@
 package web.dao;
 
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Repository;
 import web.model.User;
 
@@ -15,12 +16,7 @@ public class UserDaoImp implements UserDao {
     private EntityManager entityManager;
 
     @Override
-    public void addUser(User user) {
-        entityManager.persist(user);
-    }
-
-    @Override
-    public void updateUser(User user) {
+    public void saveUser(User user) {
         entityManager.merge(user);
     }
 
@@ -31,12 +27,27 @@ public class UserDaoImp implements UserDao {
 
     @Override
     public List<User> getAllUsers() {
-        TypedQuery<User> query = entityManager.createQuery("select user from User user", User.class);
-        return query.getResultList();
+        return entityManager
+                .createQuery("select user from User user", User.class)
+                .getResultList();
+
     }
 
     @Override
     public User getUser(long id) {
         return entityManager.find(User.class, id);
+    }
+
+    @Override
+    public User getUserByLogin(String login) {
+        TypedQuery<User> query = entityManager.createQuery(
+                "select user from User user where user.username = :login",
+                User.class);
+        query.setParameter("login", login);
+        List<User> list = query.getResultList();
+        if (list.isEmpty()) {
+            throw new UsernameNotFoundException("User " + login + "not found");
+        }
+        return list.get(0);
     }
 }

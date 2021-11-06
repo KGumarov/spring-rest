@@ -1,0 +1,50 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Users</title>
+</head>
+<body>
+
+<table>
+    <tr>
+        <th>id</th>
+        <th>Имя</th>
+        <th>Фамилия</th>
+        <th>Возраст</th>
+        <th>Логин</th>
+        <th>Пароль</th>
+        <th>Роли</th>
+    </tr>
+    <tr th:each="user : ${users}">
+        <td th:text="${user.getId()}"></td>
+        <td th:text="${user.getFirstName()}"></td>
+        <td th:text="${user.getLastName()}"></td>
+        <td th:text="${user.getAge()}"></td>
+        <td th:text="${user.getUsername()}"></td>
+        <td th:text="${user.getPassword()}"></td>
+        <td>
+            <div th:each="role : ${user.getAuthorities()}">
+                <span th:utext="${role.getAuthority()}"></span>
+            </div>
+        </td>
+
+        <td><a th:href="@{/admin/{id}(id=${user.getId()})}">Изменить</a></td>
+        <td>
+            <form action="/admin/del" method="post">
+                <input type="hidden" name="user_id" th:value="${user.getId()}"/>
+                <input type="submit" value="Удалить"/>
+            </form>
+        </td>
+
+    </tr>
+</table>
+<a th:href="@{/admin/new}">Добавить</a>
+
+<div th:fragment="logout">
+    <a th:href="@{/logout}">Выход</a>
+</div>
+
+</body>
+</html>

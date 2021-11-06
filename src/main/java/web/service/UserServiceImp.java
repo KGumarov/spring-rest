@@ -3,7 +3,9 @@ package web.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import web.dao.RoleDao;
 import web.dao.UserDao;
+import web.model.Role;
 import web.model.User;
 
 import java.util.List;
@@ -12,20 +14,18 @@ import java.util.List;
 public class UserServiceImp implements UserService{
 
     private final UserDao userDao;
+    private final RoleDao roleDao;
 
     @Autowired
-    public UserServiceImp(UserDao userDao) {
+    public UserServiceImp(UserDao userDao, RoleDao roleDao) {
         this.userDao = userDao;
+        this.roleDao = roleDao;
     }
 
     @Transactional
     @Override
     public void saveUser(User user) {
-        if (user.getId() == null) {
-            userDao.addUser(user);
-        } else {
-            userDao.updateUser(user);
-        }
+        userDao.saveUser(user);
     }
 
     @Transactional
@@ -35,12 +35,27 @@ public class UserServiceImp implements UserService{
     }
 
     @Override
+    public List<User> getAllUsers() {
+        return userDao.getAllUsers();
+    }
+
+    @Override
     public User getUser(long id) {
         return userDao.getUser(id);
     }
 
     @Override
-    public List<User> getAllUsers() {
-        return userDao.getAllUsers();
+    public User getUserByLogin(String login) {
+        return userDao.getUserByLogin(login);
+    }
+
+    @Override
+    public Role getRole(long id) {
+        return roleDao.getRole(id);
+    }
+
+    @Override
+    public List<Role> getAllRoles() {
+        return roleDao.getAllRoles();
     }
 }

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>User Inform</title>
+</head>
+<body>
+<table>
+    <tr>
+        <th>id</th>
+        <th>Имя</th>
+        <th>Фамилия</th>
+        <th>Возраст</th>
+        <th>Логин</th>
+        <th>Пароль</th>
+        <th>Роли</th>
+    </tr>
+    <tr th:object="${user}">
+        <td th:text="*{getId()}"></td>
+        <td th:text="*{getFirstName()}"></td>
+        <td th:text="*{getLastName()}"></td>
+        <td th:text="*{getAge()}"></td>
+        <td th:text="*{getUsername()}"></td>
+        <td th:text="*{getPassword()}"></td>
+        <td>
+            <div th:each="role : *{getAuthorities()}">
+                <span th:utext="${role.getAuthority()}"></span>
+            </div>
+        </td>
+    </tr>
+</table>
+<div th:insert="admin :: logout"></div>
+</body>
+</html>
