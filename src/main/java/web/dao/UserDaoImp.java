@@ -28,7 +28,7 @@ public class UserDaoImp implements UserDao {
     @Override
     public List<User> getAllUsers() {
         return entityManager
-                .createQuery("select user from User user", User.class)
+                .createQuery("SELECT user FROM User user", User.class)
                 .getResultList();
 
     }
@@ -41,7 +41,7 @@ public class UserDaoImp implements UserDao {
     @Override
     public User getUserByLogin(String login) {
         TypedQuery<User> query = entityManager.createQuery(
-                "select user from User user where user.username = :login",
+                "SELECT user FROM User user JOIN FETCH user.roles WHERE user.username = :login",
                 User.class);
         query.setParameter("login", login);
         List<User> list = query.getResultList();
