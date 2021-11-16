@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import web.model.User;
+import web.service.RoleService;
 import web.service.UserService;
 
 import java.util.List;
@@ -20,12 +21,14 @@ import java.util.List;
 public class AdminController {
 
     private final UserService userService;
+    private final RoleService roleService;
 
     private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public AdminController(UserService userService, PasswordEncoder passwordEncoder) {
+    public AdminController(UserService userService, RoleService roleService, PasswordEncoder passwordEncoder) {
         this.userService = userService;
+        this.roleService = roleService;
         this.passwordEncoder = passwordEncoder;
     }
 
@@ -39,14 +42,14 @@ public class AdminController {
     @GetMapping("/{id}")
     public String changeUserPage(@PathVariable("id") long id, Model model) {
         model.addAttribute("user", userService.getUser(id));
-        model.addAttribute("roles", userService.getAllRoles());
+        model.addAttribute("roles", roleService.getAllRoles());
         model.addAttribute("action", "Изменить");
         return "change";
     }
 
     @GetMapping("/new")
     public String addUserPage(@ModelAttribute("user") User user, Model model) {
-        model.addAttribute("roles", userService.getAllRoles());
+        model.addAttribute("roles", roleService.getAllRoles());
         model.addAttribute("action", "Добавить");
         return "change";
     }
@@ -62,7 +65,7 @@ public class AdminController {
                            @RequestParam("role_select") Long[] roleIds,
                            @RequestParam("password") String password) {
         for (Long id : roleIds) {
-            user.addRole(userService.getRole(id));
+            user.addRole(roleService.getRole(id));
         }
         user.setPassword(passwordEncoder.encode(password));
         userService.saveUser(user);

@@ -14,12 +14,10 @@ import java.util.List;
 public class UserServiceImp implements UserService{
 
     private final UserDao userDao;
-    private final RoleDao roleDao;
 
     @Autowired
-    public UserServiceImp(UserDao userDao, RoleDao roleDao) {
+    public UserServiceImp(UserDao userDao) {
         this.userDao = userDao;
-        this.roleDao = roleDao;
     }
 
     @Transactional
@@ -49,13 +47,4 @@ public class UserServiceImp implements UserService{
         return userDao.getUserByLogin(login);
     }
 
-    @Override
-    public Role getRole(long id) {
-        return roleDao.getRole(id);
-    }
-
-    @Override
-    public List<Role> getAllRoles() {
-        return roleDao.getAllRoles();
-    }
 }

@@ -40,7 +40,7 @@ public class UserDaoImp implements UserDao {
 
     @Override
     public User getUserByLogin(String login) {
-        TypedQuery<User> query = entityManager.createQuery(
+        /*TypedQuery<User> query = entityManager.createQuery(
                 "SELECT user FROM User user JOIN FETCH user.roles WHERE user.username = :login",
                 User.class);
         query.setParameter("login", login);
@@ -48,6 +48,12 @@ public class UserDaoImp implements UserDao {
         if (list.isEmpty()) {
             throw new UsernameNotFoundException("User " + login + "not found");
         }
-        return list.get(0);
+        return list.get(0);*/
+
+        User user = entityManager.
+                createQuery("SELECT user FROM User user JOIN FETCH user.roles WHERE user.username = :login", User.class).
+                setParameter("login", login).getSingleResult();
+        return user;
+
     }
 }
