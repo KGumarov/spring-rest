@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:fragment="modal_edit" class="modal" id="modal_edit" tabindex="-1"
+     aria-labelledby="exampleModalCenteredLabel" aria-hidden="true">
+    <div class="modal-dialog  modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Edit user</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close">
+                </button>
+            </div>
+            <div class="modal-body justify-content-center text-center modal-param">
+                <div class="container-fluid">
+                    <div class="row justify-content-center">
+                        <div class="col-6">
+                            <div class="p-2">
+                                <input disabled class="form-control"
+                                       readonly
+                                       type="hidden"
+                                       name="id">
+                            </div>
+
+                            <div class="p-1">
+                                <label><strong>First
+                                    name</strong></label>
+                                <br/>
+                                <input type="text"
+                                       class="form-control" name="firstName"
+                                       placeholder="First name">
+                            </div>
+
+                            <div class="p-2">
+                                <label><strong>Last
+                                    name</strong></label>
+                                <br/>
+                                <input type="text"
+                                       class="form-control" name="lastName"
+                                       placeholder="Last name">
+                            </div>
+
+                            <div class="p-2">
+                                <label><strong>Age</strong></label>
+                                <br/>
+                                <input type="number"
+                                       class="form-control" name="age"
+                                       placeholder="Age">
+                            </div>
+
+                            <div class="p-2">
+                                <label><strong>Email</strong></label>
+                                <br/>
+                                <input type="email"
+                                       class="form-control" name="username"
+                                       placeholder="Email">
+                            </div>
+
+                            <div class="p-2">
+                                <label><strong>Password</strong></label>
+                                <br/>
+                                <input type="password"
+
+                                       class="form-control" name="password"
+                                       placeholder="Password">
+                            </div>
+
+                            <div class="p-2">
+                                <label for="user_roles_update_modal">User roles (multiple
+                                    select):</label>
+                                <br/>
+                                <select required multiple="multiple" id="user_roles_update_modal"
+                                        class="form-control" name="roles">
+                                </select>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="button" id="button_edit_user" class="btn btn-primary">Edit</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</body>
+</html>

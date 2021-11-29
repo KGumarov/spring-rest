@@ -1,5 +1,7 @@
 package web.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 import org.springframework.security.core.GrantedAuthority;
@@ -48,6 +50,7 @@ public class User implements UserDetails {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     @Fetch(FetchMode.JOIN)
+    @JsonIgnore
     private Set<Role> roles = new HashSet<>();
 
     public void addRole(Role role) {
@@ -62,6 +65,13 @@ public class User implements UserDetails {
         this.firstName = firstName;
         this.lastName = lastName;
         this.age = age;
+    }
+
+    @JsonProperty("authorities")
+    public void setRolesFromJson(Set<Role> rolesJson) {
+        for (Role r:rolesJson) {
+            addRole(r);
+        }
     }
 
     public Long getId() {
